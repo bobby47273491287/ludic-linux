@@ -1,0 +1,11 @@
+---
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+version: 1
+name: ludic-nvidia-open
+description: Ludic Linux gaming desktop for newer NVIDIA graphics
+base-image: ghcr.io/ublue-os/bazzite-nvidia-open
+image-version: stable
+platforms:
+  - linux/amd64
+modules:
+  - from-file: common-modules.yml

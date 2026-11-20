@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://schema.blue-build.org/module-list-v1.json
+modules:
+  - type: default-flatpaks
+    configurations:
+      - scope: user
+        repo:
+          title: Flathub
+        notify: true
+        install:
+          - com.heroicgameslauncher.hgl
+          - net.davidotek.pupgui2
+
+  - type: files
+    files:
+      - source: system
+        destination: /
+
+  - type: os-release
+    properties:
+      NAME: Ludic Linux
+      PRETTY_NAME: Ludic Linux
+      VARIANT: Gaming Desktop
+
+  - type: signing

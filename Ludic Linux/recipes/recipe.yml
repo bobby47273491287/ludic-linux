@@ -1,0 +1,11 @@
+---
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+version: 1
+name: ludic
+description: Ludic Linux gaming desktop for AMD and Intel graphics
+base-image: ghcr.io/ublue-os/bazzite
+image-version: stable
+platforms:
+  - linux/amd64
+modules:
+  - from-file: common-modules.yml

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2560" height="1440" viewBox="0 0 2560 1440">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a111b"/>
+      <stop offset="0.54" stop-color="#101c2b"/>
+      <stop offset="1" stop-color="#0a111b"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="73%" cy="45%" r="52%">
+      <stop offset="0" stop-color="#11c5d9" stop-opacity=".42"/>
+      <stop offset=".42" stop-color="#5466cf" stop-opacity=".19"/>
+      <stop offset="1" stop-color="#101c2b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="arc" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#54edda"/>
+      <stop offset=".53" stop-color="#63aaff"/>
+      <stop offset="1" stop-color="#a17cff"/>
+    </linearGradient>
+    <linearGradient id="warm" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff9a71"/>
+      <stop offset="1" stop-color="#ffcf85"/>
+    </linearGradient>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="54"/>
+    </filter>
+  </defs>
+  <rect width="2560" height="1440" fill="url(#bg)"/>
+  <rect width="2560" height="1440" fill="url(#glow)"/>
+  <circle cx="1775" cy="750" r="340" fill="#16cfe1" opacity=".15" filter="url(#blur)"/>
+  <circle cx="1775" cy="750" r="404" fill="none" stroke="url(#arc)" stroke-width="3" opacity=".32"/>
+  <circle cx="1775" cy="750" r="328" fill="none" stroke="#b2f8f0" stroke-width="1.5" opacity=".3"/>
+  <ellipse cx="1775" cy="750" rx="565" ry="190" transform="rotate(-28 1775 750)" fill="none" stroke="url(#arc)" stroke-width="2" opacity=".3"/>
+  <ellipse cx="1775" cy="750" rx="510" ry="155" transform="rotate(34 1775 750)" fill="none" stroke="#8adbea" stroke-width="1.5" opacity=".2"/>
+  <circle cx="2188" cy="502" r="9" fill="#e9fffd"/>
+  <circle cx="1338" cy="964" r="6" fill="#67dff0"/>
+  <circle cx="1864" cy="355" r="7" fill="url(#warm)"/>
+  <path d="M1775 669l23 58 59 23-59 23-23 58-23-58-59-23 59-23z" fill="#dffefd"/>
+  <path d="M1775 699v102M1724 750h102" stroke="#69e4e5" stroke-width="3" opacity=".7"/>
+  <text x="200" y="648" fill="#f1f7fb" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="84" font-weight="700" letter-spacing="15">LUDIC</text>
+  <text x="206" y="720" fill="#a8c1d1" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="27" font-weight="400" letter-spacing="5">PLAY YOUR WAY</text>
+  <rect x="205" y="775" width="84" height="4" rx="2" fill="url(#warm)"/>
+  <text x="205" y="837" fill="#8298a9" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="21" letter-spacing="2">A gaming desktop that still feels like your PC.</text>
+  <path d="M0 1230c500-220 730 150 1180-50s865-210 1380-35v295H0z" fill="#0b1420" opacity=".44"/>
+</svg>
