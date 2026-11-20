@@ -1,6 +1,6 @@
 # Build and release
 
-Ludic uses BlueBuild recipes based on Bazzite. The GitHub workflows build and publish three image flavors. A second workflow turns a published flavor into a bootable netinstall ISO.
+Ludic uses BlueBuild recipes based on Bazzite. The GitHub workflows build and publish three image flavors. One workflow turns a published flavor into a temporary live desktop ISO; a second workflow makes a network installer ISO.
 
 ## Before the first build
 
@@ -31,7 +31,13 @@ The published image names are:
 
 Replace OWNER with the lowercase GitHub account or organization that owns the repository. After the first push, GitHub may leave the package private; change the package visibility if people outside the repository need to download the image.
 
-## Create an installer ISO
+## Create a live preview ISO
+
+After the image workflow has succeeded, run **Build Ludic live preview** from the Actions tab and select the graphics flavor. Download the ISO from that workflow run's artifact. The preview boots directly to KDE Plasma and has no install option, so it is suitable for a virtual machine or a USB test session without changing the computer's drives.
+
+The live ISO is generated with [Titanoboa](https://github.com/ublue-os/titanoboa), following the live ISO approach documented by [Bazzite](https://github.com/ublue-os/bazzite/tree/main/installer). It includes the selected Ludic image as its desktop environment. Like other live sessions, it uses temporary storage: files and settings made during the session disappear when it shuts down. Game performance in the live session is not representative of an installed system.
+
+## Create a network installer ISO
 
 After the image workflow has succeeded, run **Build a Ludic installer** from the Actions tab and select the graphics flavor. The ISO is attached to the workflow run as an artifact.
 
@@ -60,6 +66,7 @@ BlueBuild also documents local-recipe ISO generation. Use the published-image ro
 ## What the workflows do
 
 - build-images.yml builds each recipe through the BlueBuild GitHub Action and pushes signed image tags.
+- build-live-preview.yml prepares a live desktop image from the selected published flavor, builds a try-only ISO, and stores it as a GitHub Actions artifact for 30 days.
 - build-installer.yml pulls the selected published image, generates a netinstall ISO, and stores it as a GitHub Actions artifact for 14 days.
 - The image base tracks Bazzite’s stable image tag. The scheduled build checks upstream updates; it does not pin a Fedora major version forever.
 

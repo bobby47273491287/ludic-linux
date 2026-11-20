@@ -1,0 +1,7 @@
+ARG BASE_IMAGE=ghcr.io/ublue-os/bazzite:stable
+FROM ${BASE_IMAGE}
+
+# Turn the published desktop image into a read-only live session. The build
+# script is mounted only for this build and is not copied into the live system.
+RUN --mount=type=bind,source=./.,target=/src \
+    /src/build.sh

@@ -11,13 +11,14 @@ Ludic is a desktop-first Linux distribution concept for PC gaming. It starts wit
 - Heroic Games Launcher for Epic, GOG, and Amazon libraries, plus ProtonUp-Qt for managing community compatibility tools.
 - Atomic system updates with a previous deployment available for rollback.
 - A custom Ludic wallpaper and operating-system name.
-- A GitHub build workflow for the system images and a separate workflow for generating an install USB image.
+- A live preview ISO that boots to the desktop without starting an installation.
+- A separate network installer ISO for people who decide to install later.
 
 Ludic does not promise that every game works. Game publishers control Linux and anti-cheat support; check the game’s current compatibility before switching your main PC.
 
 ## Project status
 
-This is the first buildable prototype: recipes, branding, design notes, and CI workflows are ready. The installer ISO and system images are not included yet. This Windows workspace has no Linux build environment, so the image build needs to run through GitHub Actions or on a Linux machine. The first GitHub build also needs a Cosign signing key configured; see [Build and release](docs/BUILD.md).
+This is the first buildable prototype: recipes, branding, design notes, and CI workflows are ready. The ISO and system images are not included yet. This Windows workspace has no Linux build environment, so the image build needs to run through GitHub Actions or on a Linux machine. The first image build also needs a Cosign signing key configured; see [Build and release](docs/BUILD.md).
 
 ## Hardware flavors
 
@@ -31,12 +32,17 @@ The NVIDIA open-module build is for Turing-generation GPUs and newer. If you are
 
 ## Build it
 
-1. Create a GitHub repository from this folder and enable GitHub Actions.
+1. Upload the project files to your GitHub repository, including the hidden `.github` folder, and enable GitHub Actions.
 2. Generate a Cosign key pair. Keep the private key private; add it to repository Actions secrets as SIGNING_SECRET. Make the public key available to the build as COSIGN_PUBLIC_KEY. More detail is in [Build and release](docs/BUILD.md).
 3. Run **Build Ludic images** in the Actions tab. The workflow publishes the three system images to GitHub Container Registry.
-4. Run **Build a Ludic installer** and choose your graphics flavor. Download the ISO from that workflow’s Artifacts section.
+4. Run **Build Ludic live preview** and choose your graphics flavor. Download the ISO from that workflow’s Artifacts section, then boot it in a virtual machine or from a USB drive. It opens the desktop and has no installer entry.
+5. If you decide to install later, run **Build a Ludic installer**. That separate ISO installs the selected image over the internet.
 
-For local Linux builds and the image-based install flow, see [Build and release](docs/BUILD.md) and [Install Ludic](docs/INSTALL.md).
+For live preview details, local Linux builds, and the image-based install flow, see [Build and release](docs/BUILD.md) and [Try or install Ludic](docs/INSTALL.md).
+
+## Website
+
+A standalone static website is included at the project root. To publish it free with GitHub Pages, follow [Publish the website](PUBLISH-WEBSITE.md). The site is designed to stay lightweight and does not load third-party fonts or tracking scripts.
 
 ## Design
 
@@ -46,6 +52,7 @@ Ludic uses a graphite background with cool cyan light and restrained warm accent
 
 - This prototype targets x86_64 PCs. ARM PCs and handheld-specific interfaces are outside the first release.
 - The installer is a net installer and needs a working internet connection.
+- The live preview is temporary: changes made during the session are lost at shutdown. It is for checking the desktop and apps; game performance in a live session will not match an installed system.
 - The Ludic wallpaper is included in the image for selection from KDE’s wallpaper settings; automatic default-wallpaper selection is later work.
 - Game compatibility depends on each title, launcher, graphics driver, and anti-cheat configuration.
 - The first release inherits the Bazzite installer and much of its desktop behavior. Ludic-specific installer screens and a dedicated settings app are later work.
