@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#11120f">
+    <meta name="description" content="Ludic is a desktop-first Linux gaming system. Explore the early build, see what is inside, and try the live preview when it is ready.">
+    <title>Ludic Linux — your desktop, ready to play</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="announcement">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span>Early build in progress</span>
+      <span class="announcement-divider" aria-hidden="true">/</span>
+      <a href="https://github.com/bobby47273491287/ludic-linux">Follow Ludic on GitHub <span aria-hidden="true">↗</span></a>
+    </div>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Ludic home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M11 8.5v18.1c0 3.2 2.2 5.4 5.4 5.4h12.1" stroke="currentColor" stroke-width="4.2" stroke-linecap="round"/>
+            <path d="M22.5 20.5h6.2m-3.1-3.1v6.2" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+            <circle cx="30.5" cy="27.5" r="1.3" fill="currentColor"/>
+          </svg>
+        </span>
+        <span class="brand-name">ludic<span class="brand-linux">linux</span></span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation">
+        <span></span><span></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+        <a href="#why-ludic">Why Ludic</a>
+        <a href="#inside">Inside Ludic</a>
+        <a href="#try-it">Try it</a>
+        <a class="nav-cta" href="https://github.com/bobby47273491287/ludic-linux">View project <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero section-wrap" id="top">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span> A Linux gaming desktop</p>
+          <h1>Your PC.<br><span>Your kind of play.</span></h1>
+          <p class="hero-lede">A familiar desktop, ready for game night. Ludic brings together KDE Plasma, Steam and a gaming-ready Linux foundation, with room to make it yours.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#try-it">Explore the preview <span aria-hidden="true">↓</span></a>
+            <a class="text-link" href="https://github.com/bobby47273491287/ludic-linux">See the project <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="hero-note">
+            <span class="note-icon" aria-hidden="true">✳</span>
+            <span>Desktop first. Built for the games and apps you already love.</span>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-label="Illustration of the Ludic desktop">
+          <div class="art-orbit orbit-one"></div>
+          <div class="art-orbit orbit-two"></div>
+          <div class="desktop-window">
+            <div class="window-bar">
+              <div class="window-controls" aria-hidden="true"><i></i><i></i><i></i></div>
+              <div class="window-label"><span class="mini-mark">L</span> Ludic desktop</div>
+              <span class="window-time">9:41 PM</span>
+            </div>
+            <div class="desktop-scene">
+              <div class="scene-glow"></div>
+              <div class="scene-copy">
+                <p class="scene-kicker">GOOD EVENING</p>
+                <h2>Ready when<br>you are.</h2>
+                <span class="scene-caption">Your space. Your next adventure.</span>
+              </div>
+              <div class="scene-shortcuts" aria-hidden="true">
+                <div class="shortcut"><span class="app-icon icon-steam">S</span><small>Steam</small></div>
+                <div class="shortcut"><span class="app-icon icon-heroic">H</span><small>Heroic</small></div>
+                <div class="shortcut"><span class="app-icon icon-tools">P</span><small>ProtonUp</small></div>
+              </div>
+              <div class="scene-dock" aria-hidden="true">
+                <span class="dock-icon dock-start">L</span>
+                <span class="dock-icon dock-folder">▰</span>
+                <span class="dock-icon dock-web">◎</span>
+                <span class="dock-icon dock-store">◈</span>
+                <span class="dock-spacer"></span>
+                <span class="dock-indicator">● &nbsp; ▴ &nbsp; ◉ &nbsp; 9:41</span>
+              </div>
+            </div>
+            <div class="window-foot"><span><b></b> Preview concept</span><span>KDE Plasma · Desktop mode</span></div>
+          </div>
+          <div class="float-card float-card-top"><span class="float-icon">↻</span><span><b>Atomic updates</b><small>Roll back if needed</small></span></div>
+          <div class="float-card float-card-bottom"><span class="float-icon float-game">✦</span><span><b>Made to play</b><small>PC gaming, your way</small></span></div>
+          <div class="art-caption"><span>01</span><i></i> A desktop that feels like yours</div>
+        </div>
+      </section>
+
+      <section class="signal-strip" aria-label="Ludic highlights">
+        <div class="signal-item"><span class="signal-number">01</span><span>Familiar KDE desktop</span></div>
+        <div class="signal-item"><span class="signal-number">02</span><span>Gaming-ready foundation</span></div>
+        <div class="signal-item"><span class="signal-number">03</span><span>Safer system rollbacks</span></div>
+        <div class="signal-item signal-last"><span class="signal-star" aria-hidden="true">✳</span><span>Open source project</span></div>
+      </section>
+
+      <section class="intro-section section-wrap" id="why-ludic">
+        <div class="section-heading">
+          <p class="eyebrow"><span class="eyebrow-line"></span> Play without the fuss</p>
+          <h2>A desktop first.<br><span>A game library close by.</span></h2>
+        </div>
+        <div class="intro-copy">
+          <p>Ludic is being built for people who want a proper PC desktop and a simpler path to Linux gaming. Use a mouse and keyboard, keep your familiar workflow, then jump into Steam or your other game libraries.</p>
+          <a class="arrow-link" href="#inside">Get to know Ludic <span aria-hidden="true">↘</span></a>
+        </div>
+      </section>
+
+      <section class="feature-grid section-wrap" id="inside" aria-label="What's inside Ludic">
+        <article class="feature-card feature-large">
+          <div class="feature-top"><span class="feature-index">01 / DESKTOP</span><span class="feature-symbol symbol-window" aria-hidden="true">▧</span></div>
+          <h3>Your desktop,<br>your rhythm.</h3>
+          <p>KDE Plasma keeps the familiar taskbar, app menu and window controls, with plenty of room to tune the look and feel.</p>
+          <div class="feature-art art-desktop" aria-hidden="true">
+            <span class="desktop-tile tile-a">L</span><span class="desktop-tile tile-b">▣</span><span class="desktop-tile tile-c">◉</span>
+            <div class="desktop-line"></div><div class="desktop-line short"></div>
+          </div>
+        </article>
+
+        <article class="feature-card feature-accent">
+          <div class="feature-top"><span class="feature-index">02 / GAMES</span><span class="feature-symbol" aria-hidden="true">✳</span></div>
+          <h3>Your libraries,<br>in one place.</h3>
+          <p>Steam is ready to go. Heroic helps bring Epic, GOG and Amazon games together on your desktop.</p>
+          <div class="library-pills" aria-label="Steam, Epic Games, GOG, and Amazon Games"><span>STEAM</span><span>EPIC</span><span>GOG</span><span>AMAZON</span></div>
+        </article>
+
+        <article class="feature-card feature-wide">
+          <div class="feature-top"><span class="feature-index">03 / PEACE OF MIND</span><span class="feature-symbol symbol-rollback" aria-hidden="true">↶</span></div>
+          <div class="wide-copy">
+            <h3>Updates with<br>a way back.</h3>
+            <p>Ludic uses an image-based Fedora Atomic system. Updates arrive together, and the previous system version stays available if you need to roll back.</p>
+          </div>
+          <div class="update-art" aria-hidden="true">
+            <div class="update-node node-current"><span class="node-dot"></span><small>NOW</small><b>Current<br>system</b></div>
+            <div class="update-path"><i></i><i></i><i></i></div>
+            <div class="update-node node-back"><span class="node-dot"></span><small>IF NEEDED</small><b>Previous<br>version</b></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="try-section" id="try-it">
+        <div class="try-inner section-wrap">
+          <div class="try-copy">
+            <p class="eyebrow"><span class="eyebrow-line"></span> Take it for a spin</p>
+            <h2>Try the desktop<br><span>before you commit.</span></h2>
+            <p>The planned live preview will start Ludic from a USB drive or virtual machine. Look around, open the apps and see how the desktop feels. It has no installer and makes no changes to your computer on its own.</p>
+            <a class="button button-lime" href="https://github.com/bobby47273491287/ludic-linux/actions">Find the preview build <span aria-hidden="true">↗</span></a>
+            <p class="try-status"><span class="status-dot" aria-hidden="true"></span>First public preview image is still being prepared.</p>
+          </div>
+          <div class="try-steps">
+            <div class="try-step"><span class="step-num">01</span><div><b>Build the image</b><p>Choose the hardware flavor that matches your PC.</p></div><span class="step-arrow" aria-hidden="true">↗</span></div>
+            <div class="try-step"><span class="step-num">02</span><div><b>Make a live preview</b><p>GitHub Actions creates a downloadable ISO.</p></div><span class="step-arrow" aria-hidden="true">↗</span></div>
+            <div class="try-step"><span class="step-num">03</span><div><b>Boot and explore</b><p>Try the desktop in a VM or from a USB drive.</p></div><span class="step-arrow" aria-hidden="true">↗</span></div>
+            <div class="try-footnote"><span aria-hidden="true">✳</span> A live session is temporary. Its files disappear when you shut down, and it isn't a good measure of game performance.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="hardware-section section-wrap" id="hardware">
+        <div class="hardware-heading">
+          <div><p class="eyebrow"><span class="eyebrow-line"></span> Choose your flavor</p><h2>One desktop.<br><span>Your graphics card.</span></h2></div>
+          <p>Start with the image made for your graphics hardware. The first builds are for 64-bit desktop and laptop PCs.</p>
+        </div>
+        <div class="hardware-cards">
+          <article class="hardware-card">
+            <span class="hardware-chip chip-sun">A / I</span><div><h3>AMD &amp; Intel</h3><p>For integrated and Radeon graphics, plus most Intel graphics.</p></div><span class="hardware-check">Default</span>
+          </article>
+          <article class="hardware-card">
+            <span class="hardware-chip chip-purple">N</span><div><h3>NVIDIA</h3><p>For NVIDIA graphics using the standard proprietary driver.</p></div><span class="hardware-arrow" aria-hidden="true">↗</span>
+          </article>
+          <article class="hardware-card">
+            <span class="hardware-chip chip-blue">N+</span><div><h3>NVIDIA Open</h3><p>For supported newer NVIDIA cards with the open kernel module.</p></div><span class="hardware-arrow" aria-hidden="true">↗</span>
+          </article>
+        </div>
+        <p class="hardware-note">Not sure which one to pick? Check your graphics card in your current system before downloading.</p>
+      </section>
+
+      <section class="closing section-wrap">
+        <div class="closing-mark" aria-hidden="true">L</div>
+        <div><p class="eyebrow">Still in the workshop</p><h2>Good things are<br><span>worth playing with.</span></h2></div>
+        <div class="closing-copy"><p>Ludic is an independent community project in its early build stage. Follow along, explore the source, and help shape what comes next.</p><a class="button button-outline" href="https://github.com/bobby47273491287/ludic-linux">Explore the source <span aria-hidden="true">↗</span></a></div>
+      </section>
+    </main>
+
+    <footer class="site-footer section-wrap">
+      <a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M11 8.5v18.1c0 3.2 2.2 5.4 5.4 5.4h12.1" stroke="currentColor" stroke-width="4.2" stroke-linecap="round"/><path d="M22.5 20.5h6.2m-3.1-3.1v6.2" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="30.5" cy="27.5" r="1.3" fill="currentColor"/></svg></span><span class="brand-name">ludic<span class="brand-linux">linux</span></span></a>
+      <p>Independent project. Not affiliated with Fedora, Bazzite, Valve or the game publishers mentioned here.</p>
+      <a class="footer-link" href="https://github.com/bobby47273491287/ludic-linux">GitHub <span aria-hidden="true">↗</span></a>
+      <span class="footer-copy">© <span id="year">2026</span> Ludic Linux</span>
+    </footer>
+  </body>
+</html>
