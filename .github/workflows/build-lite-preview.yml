@@ -61,7 +61,8 @@ jobs:
         env:
           IMAGE_OWNER: ${{ github.repository_owner }}
         run: |
-          mkdir -p source/build-output
+          cd source
+          mkdir -p build-output
           sudo env \
             TMPDIR=/mnt/podman-storage/tmp \
             BB_REGISTRY=ghcr.io \
@@ -69,8 +70,8 @@ jobs:
             bluebuild build \
               --build-driver podman \
               --run-driver podman \
-              --archive source/build-output \
-              source/recipes/recipe-lite.yml
+              --archive build-output \
+              recipes/recipe-lite.yml
 
       - name: Load the Lite image into Podman
         run: |
