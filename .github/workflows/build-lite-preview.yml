@@ -76,8 +76,14 @@ jobs:
       - name: Load the Lite image into Podman
         run: |
           set -euo pipefail
-          archive=source/build-output/ludic-lite.tar.gz
-          echo "Checking BlueBuild archive at $archive"
+          echo "Searching for the BlueBuild image archive"
+          find . -maxdepth 8 -type f -name 'ludic-lite*' -print
+          archive=$(find . -maxdepth 8 -type f \( -name 'ludic-lite.tar.gz' -o -name 'ludic-lite.gz' \) -print -quit)
+          if [[ -z "$archive" ]]; then
+            echo "BlueBuild finished without an archive in the checked out workspace." >&2
+            exit 1
+          fi
+          echo "Loading BlueBuild archive at $archive"
           ls -lh "$archive"
           file "$archive"
           echo "Loading archive into Podman and capturing its output"
