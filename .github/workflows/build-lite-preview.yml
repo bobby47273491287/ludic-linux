@@ -75,7 +75,7 @@ jobs:
 
       - name: Load the Lite image into Podman
         run: |
-          archive=source/build-output/ludic-lite.ociarchive
+          archive=source/build-output/ludic-lite.tar.gz
           test -f "$archive"
           sudo podman load --input "$archive"
           image_ref=$(sudo podman images --format '{{.Repository}}:{{.Tag}}' | awk '/ludic-lite/ && $0 !~ /<none>/ { print; exit }')
