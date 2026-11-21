@@ -54,7 +54,8 @@ jobs:
         run: docker run --pull=always --rm ghcr.io/blue-build/cli:latest-installer | sudo bash
 
       - name: Prepare an unsigned preview image
-        run: sed -i '/^  - type: signing$/d' source/recipes/lite-modules.yml
+        run: |
+          sed -i '/^  - type: signing$/d' source/recipes/lite-modules.yml
 
       - name: Build the Lite image locally
         env:
