@@ -75,14 +75,21 @@ jobs:
 
       - name: Load the Lite image into Podman
         run: |
+          set -euo pipefail
           archive=source/build-output/ludic-lite.tar.gz
-          test -f "$archive"
-          sudo podman load --input "$archive"
+          echo "Checking BlueBuild archive at $archive"
+          ls -lh "$archive"
+          file "$archive"
+          echo "Loading archive into Podman and capturing its output"
+          sudo podman load --input "$archive" 2>&1 | tee /tmp/ludic-lite-podman-load.log
+          echo "Images after archive load:"
+          sudo podman images --format '{{.Repository}}:{{.Tag}}'
           image_ref=$(sudo podman images --format '{{.Repository}}:{{.Tag}}' | awk '/ludic-lite/ && $0 !~ /<none>/ { print; exit }')
           if [[ -z "$image_ref" ]]; then
             echo "The Lite image archive did not contain a tagged image." >&2
             exit 1
           fi
+          echo "Tagging $image_ref for the live ISO build"
           sudo podman tag "$image_ref" localhost/ludic-lite:latest
 
       - name: Build the temporary live desktop image
