@@ -1,0 +1,147 @@
+name: Build Ludic Lite live preview
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "ludic-source.zip"
+      - ".github/workflows/build-lite-preview.yml"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  preview:
+    name: Build Ludic Lite preview ISO
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    permissions:
+      contents: write
+    steps:
+      - name: Free runner disk space
+        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6 # v2.0.0
+        with:
+          tool-cache: true
+
+      - name: Check out Ludic
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Unpack project source
+        run: |
+          mkdir source
+          unzip -q ludic-source.zip -d source
+          test -f source/recipes/recipe-lite.yml
+          test -f source/installer/Containerfile
+
+      - name: Prepare large container storage
+        run: |
+          sudo truncate -s 110G /mnt/podman-storage.img
+          sudo mkfs.btrfs -f -m single -d single /mnt/podman-storage.img
+          sudo podman system reset --force
+          sudo systemctl stop podman.service
+          loop_device=$(sudo losetup --find --show --direct-io=on /mnt/podman-storage.img)
+          sudo mkdir -p /mnt/podman-storage
+          sudo mount -o compress-force=zstd:2,discard=async,noatime "$loop_device" /mnt/podman-storage
+          sudo mkdir -p /mnt/podman-storage/storage /mnt/podman-storage/tmp
+          sudo mount --bind /mnt/podman-storage/storage /var/lib/containers/storage
+          sudo systemctl start podman.service
+
+      - name: Install BlueBuild CLI
+        run: docker run --pull=always --rm ghcr.io/blue-build/cli:latest-installer | sudo bash
+
+      - name: Prepare an unsigned preview image
+        run: sed -i '/^  - type: signing$/d' source/recipes/lite-modules.yml
+
+      - name: Build the Lite image locally
+        env:
+          IMAGE_OWNER: ${{ github.repository_owner }}
+        run: |
+          mkdir -p source/build-output
+          sudo env \
+            TMPDIR=/mnt/podman-storage/tmp \
+            BB_REGISTRY=ghcr.io \
+            BB_REGISTRY_NAMESPACE="${IMAGE_OWNER,,}" \
+            bluebuild build \
+              --build-driver podman \
+              --run-driver podman \
+              --archive source/build-output \
+              source/recipes/recipe-lite.yml
+
+      - name: Load the Lite image into Podman
+        run: |
+          archive=source/build-output/ludic-lite.ociarchive
+          test -f "$archive"
+          sudo podman load --input "$archive"
+          image_ref=$(sudo podman images --format '{{.Repository}}:{{.Tag}}' | awk '/ludic-lite/ && $0 !~ /<none>/ { print; exit }')
+          if [[ -z "$image_ref" ]]; then
+            echo "The Lite image archive did not contain a tagged image." >&2
+            exit 1
+          fi
+          sudo podman tag "$image_ref" localhost/ludic-lite:latest
+
+      - name: Build the temporary live desktop image
+        env:
+          BASE_IMAGE: localhost/ludic-lite:latest
+          LIVE_SESSION: lxqt
+        run: |
+          sudo env TMPDIR=/mnt/podman-storage/tmp podman build \
+            --cap-add sys_admin \
+            --security-opt label=disable \
+            --build-arg BASE_IMAGE="$BASE_IMAGE" \
+            --build-arg LIVE_SESSION="$LIVE_SESSION" \
+            --tag localhost/ludic-live:latest \
+            source/installer/
+
+      - name: Build live ISO
+        id: build
+        uses: ublue-os/titanoboa@5c457c3d0518bd17e754be0fd98a60d29d26abb4
+        with:
+          image-ref: localhost/ludic-live:latest
+          iso-dest: ludic-lite-live.iso
+
+      - name: Publish the ISO as a preview release
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISO_PATH: ${{ steps.build.outputs.iso-dest }}
+        run: |
+          mkdir -p output
+          mv "$ISO_PATH" output/ludic-lite-live.iso
+          (cd output && sha256sum ludic-lite-live.iso > ludic-lite-live.iso.sha256)
+          iso_size=$(stat -c '%s' output/ludic-lite-live.iso)
+
+          # GitHub limits each release asset to less than 2 GiB.
+          if (( iso_size < 2147483648 )); then
+            release_tag=ludic-lite-preview
+            if gh release view "$release_tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+              gh release upload "$release_tag" \
+                output/ludic-lite-live.iso output/ludic-lite-live.iso.sha256 \
+                --clobber --repo "$GITHUB_REPOSITORY"
+            else
+              gh release create "$release_tag" \
+                output/ludic-lite-live.iso output/ludic-lite-live.iso.sha256 \
+                --prerelease \
+                --title "Ludic Lite live preview (experimental)" \
+                --notes "Temporary LXQt live preview for testing in a virtual machine or from USB. It has no installer. The 1 GB idle-desktop target is experimental and has not yet been measured or guaranteed. See the Ludic website and repository README for current limits." \
+                --repo "$GITHUB_REPOSITORY"
+            fi
+            echo "published=true" >> "$GITHUB_OUTPUT"
+            echo "The ISO and SHA-256 checksum are attached to the preview release." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "published=false" >> "$GITHUB_OUTPUT"
+            echo "The ISO is 2 GiB or larger, so it cannot be attached to a GitHub Release. A one-day Actions artifact will be uploaded instead." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Keep a short-lived download if the ISO exceeds the release size limit
+        if: steps.release.outputs.published != 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: ludic-lite-live-preview
+          path: output/
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 0
